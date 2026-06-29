@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "lenis";
 
 const PROJECT_NAME = "Project 12";
-const DESIGNER_NAME = "Niroyan Studio";
+const DESIGNER_NAME = "Niroyan";
 const DESIGNER_URL = "https://n12oyan.vercel.app/";
 
 const floatingTags = ["Landing Page", "UI/UX Design", "Desktop 1920"];
