@@ -8,8 +8,17 @@ import Lenis from "lenis";
 
 const PROJECT_NAME = "Project 12";
 const DESIGNER_NAME = "Niroyan Studio";
+const DESIGNER_URL = "https://n12oyan.vercel.app/";
 
 const floatingTags = ["Landing Page", "UI/UX Design", "Desktop 1920"];
+
+const navItems = [
+  { label: "Concept", href: "#concept" },
+  { label: "Showcase", href: "#showcase" },
+  { label: "System", href: "#system" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Responsive", href: "#responsive" },
+];
 
 const projectStats = [
   { label: "Screens", value: "12" },
@@ -85,6 +94,7 @@ export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useLenis();
 
@@ -198,9 +208,73 @@ export default function Home() {
       </Head>
 
       <main className="min-h-screen bg-black text-white">
+        <header className="fixed inset-x-0 top-0 z-[80] border-b border-white/10 bg-black/52 px-4 py-4 backdrop-blur-2xl sm:px-6 lg:px-10">
+          <nav className="mx-auto grid max-w-[1500px] grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]" aria-label="Primary navigation">
+            <a href="#" className="text-xs font-black uppercase tracking-[0.28em] text-white">
+              Project 12
+            </a>
+
+            <div className="hidden items-center gap-2 lg:flex">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="border border-white/10 bg-white/[0.045] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/62 transition hover:border-[#A78BFA]/60 hover:text-white"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
+            <a
+              href={DESIGNER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden justify-self-end text-right text-[11px] font-semibold uppercase tracking-[0.24em] text-white/48 transition hover:text-white lg:block"
+            >
+              Designed by {DESIGNER_NAME}
+            </a>
+
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center justify-self-end border border-white/14 bg-white/[0.05] text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-xl lg:hidden"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? "X" : "M"}
+            </button>
+          </nav>
+
+          {menuOpen && (
+            <div className="mx-auto mt-4 grid max-w-[1500px] gap-2 border-t border-white/10 pt-4 lg:hidden">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/42">
+                UI/UX Design Website / {DESIGNER_NAME}
+              </p>
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="border border-white/10 bg-white/[0.055] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white/74 backdrop-blur-xl"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <a
+                href="#launch"
+                className="bg-white px-4 py-3 text-xs font-black uppercase tracking-[0.24em] text-black"
+                onClick={() => setMenuOpen(false)}
+              >
+                Start Project
+              </a>
+            </div>
+          )}
+        </header>
+
         <section
           ref={heroRef}
-          className="relative isolate min-h-screen overflow-hidden bg-black px-4 py-5 sm:px-6 lg:px-10"
+          className="relative isolate min-h-[760px] overflow-hidden bg-black px-4 pb-5 pt-24 sm:min-h-screen sm:px-6 lg:px-10"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
@@ -208,31 +282,38 @@ export default function Home() {
           <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_66%_40%,rgba(167,139,250,0.22),transparent_25%),radial-gradient(circle_at_42%_72%,rgba(245,158,11,0.15),transparent_28%)]" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-1/2 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
-          <header className="relative z-50 grid grid-cols-2 gap-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/82 md:grid-cols-3">
+          <div className="relative z-50 hidden grid-cols-3 gap-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/82 md:grid">
             <p>UI/UX Design Website</p>
-            <p className="hidden text-center text-white/50 md:block">Architectural Digital Showcase</p>
-            <p className="text-right text-white/70">Designed by {DESIGNER_NAME}</p>
-          </header>
+            <p className="text-center text-white/50">Architectural Digital Showcase</p>
+            <a
+              href={DESIGNER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-right text-white/70 transition hover:text-white"
+            >
+              Designed by {DESIGNER_NAME}
+            </a>
+          </div>
 
           <motion.h1
             ref={titleRef}
-            className="pointer-events-none absolute left-3 right-3 top-[12vh] z-30 max-w-[1760px] text-[18vw] font-black uppercase leading-[0.78] tracking-[-0.075em] text-white sm:left-6 sm:right-6 md:top-[10vh] lg:left-10 lg:right-10 lg:text-[12.2vw]"
+            className="pointer-events-none absolute left-4 right-4 top-[16vh] z-30 max-w-[1760px] text-[20vw] font-black uppercase leading-[0.82] tracking-[-0.075em] text-white sm:left-6 sm:right-6 sm:top-[13vh] md:top-[12vh] lg:left-10 lg:right-10 lg:top-[10vh] lg:text-[12.2vw]"
             style={{ y: headlineY, filter: headlineBlur }}
             aria-label={`${PROJECT_NAME} - A New Era of Digital Experience`}
           >
             <span className="block overflow-hidden">
               <span className="hero-word inline-block">{PROJECT_NAME}</span>
             </span>
-            <span className="block overflow-hidden pl-[14vw] text-[12vw] text-white/92 lg:text-[7.8vw]">
+            <span className="block overflow-hidden pl-[5vw] text-[14vw] text-white/92 sm:pl-[14vw] sm:text-[12vw] lg:text-[7.8vw]">
               <span className="hero-word inline-block">A New Era</span>
             </span>
-            <span className="block overflow-hidden text-[11.8vw] text-white/84 lg:text-[7.4vw]">
+            <span className="block overflow-hidden text-[13vw] text-white/84 sm:text-[11.8vw] lg:text-[7.4vw]">
               <span className="hero-word inline-block">of Digital Experience</span>
             </span>
           </motion.h1>
 
           <motion.div
-            className="absolute left-1/2 top-[45%] z-20 w-[116vw] max-w-[1180px] -translate-x-1/2 -translate-y-1/2 sm:top-[48%] sm:w-[94vw] lg:top-[52%] lg:w-[78vw]"
+            className="absolute left-1/2 top-[49%] z-20 w-[132vw] max-w-[1180px] -translate-x-1/2 -translate-y-1/2 sm:top-[50%] sm:w-[98vw] md:w-[90vw] lg:top-[52%] lg:w-[78vw]"
             style={{ y: laptopY, scale: heroScale }}
           >
             <div
@@ -294,10 +375,10 @@ export default function Home() {
                 key={tag}
                 className={`floating-label absolute border border-white/14 bg-white/[0.075] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/82 shadow-[0_18px_70px_rgba(0,0,0,0.4)] backdrop-blur-xl ${
                   index === 0
-                    ? "left-[7%] top-[35%]"
+                    ? "left-[5%] top-[38%] sm:left-[7%] sm:top-[35%]"
                     : index === 1
-                      ? "right-[8%] top-[32%]"
-                      : "right-[12%] bottom-[28%]"
+                      ? "right-[5%] top-[39%] sm:right-[8%] sm:top-[32%]"
+                      : "bottom-[30%] right-[8%] hidden sm:block lg:right-[12%] lg:bottom-[28%]"
                 }`}
               >
                 {tag}
@@ -307,18 +388,18 @@ export default function Home() {
 
           <div
             ref={detailsRef}
-            className="absolute bottom-5 left-4 right-4 z-50 grid gap-6 md:grid-cols-[1fr_auto] md:items-end lg:left-10 lg:right-10"
+            className="absolute bottom-5 left-4 right-4 z-50 grid gap-4 md:grid-cols-[1fr_auto] md:items-end lg:left-10 lg:right-10"
           >
-            <p className="max-w-sm text-sm leading-6 text-white/62 sm:text-base sm:leading-7">
+            <p className="max-w-[19rem] text-xs leading-5 text-white/62 sm:max-w-sm sm:text-base sm:leading-7">
               A cinematic hero system for premium real-estate storytelling, designed with brutalist restraint, soft glass overlays, responsive hierarchy, and a floating product-grade device scene.
             </p>
-            <p className="text-right text-[20vw] font-black leading-none tracking-[-0.08em] text-white md:text-[9rem] lg:text-[11rem]">
+            <p className="text-right text-[24vw] font-black leading-none tracking-[-0.08em] text-white md:text-[9rem] lg:text-[11rem]">
               2026
             </p>
           </div>
         </section>
 
-        <section className="relative bg-black px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
+        <section id="overview" className="relative scroll-mt-24 bg-black px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
           <div className="mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.78fr_1.22fr]">
             <div className="reveal-blur">
               <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#A78BFA]">Scroll System</p>
@@ -337,7 +418,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
+        <section id="concept" className="relative scroll-mt-24 overflow-hidden bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
           <div className="mx-auto grid max-w-[1500px] gap-14 border-t border-white/10 pt-10 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="reveal-blur lg:sticky lg:top-10 lg:self-start">
               <p className="mb-6 text-xs font-semibold uppercase tracking-[0.32em] text-white/42">01 / Concept</p>
@@ -365,7 +446,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
+        <section id="showcase" className="scroll-mt-24 bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
           <div className="mx-auto max-w-[1500px]">
             <div className="reveal-blur mb-12 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
               <div>
@@ -405,7 +486,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
+        <section id="system" className="scroll-mt-24 bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
           <div className="mx-auto max-w-[1500px] border-y border-white/10">
             {systemRows.map((row, index) => (
               <div key={row[0]} className="reveal-blur grid gap-6 border-b border-white/10 py-8 last:border-b-0 lg:grid-cols-[120px_1fr_1fr] lg:items-center">
@@ -420,7 +501,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="overflow-hidden bg-black py-20 lg:py-32">
+        <section id="gallery" className="scroll-mt-24 overflow-hidden bg-black py-20 lg:py-32">
           <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10">
             <p className="reveal-blur mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#A78BFA]">03 / Gallery</p>
             <h2 className="reveal-blur max-w-6xl text-6xl font-black uppercase leading-[0.82] tracking-[-0.07em] text-white sm:text-8xl lg:text-[10rem]">
@@ -444,7 +525,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
+        <section id="responsive" className="relative scroll-mt-24 overflow-hidden bg-black px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
           <div className="absolute inset-0 opacity-25">
             <Image
               className="object-cover"
@@ -472,7 +553,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-black px-4 py-24 sm:px-6 lg:px-10 lg:py-36">
+        <section id="launch" className="scroll-mt-24 bg-black px-4 py-24 sm:px-6 lg:px-10 lg:py-36">
           <div className="mx-auto max-w-[1500px]">
             <div className="reveal-blur border border-white/12 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-10 lg:p-14">
               <p className="mb-6 text-xs font-semibold uppercase tracking-[0.32em] text-[#A78BFA]">05 / Launch</p>
