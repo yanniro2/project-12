@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #080807;
-  --foreground: #f2eadc;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 html,
@@ -22,7 +22,7 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: "Satoshi", "General Sans", "Neue Montreal", "Inter", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,8 +39,12 @@ a {
 }
 
 ::selection {
-  color: #080807;
-  background: #e4c987;
+  color: #000000;
+  background: #a78bfa;
+}
+
+img {
+  -webkit-user-drag: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
